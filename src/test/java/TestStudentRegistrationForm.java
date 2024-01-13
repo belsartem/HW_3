@@ -21,42 +21,43 @@ public class TestStudentRegistrationForm {
    @Test
    void testRegistration() throws InterruptedException {
 
-      open("/automation-practice-form");  //Открыть браузер на странице
-      executeJavaScript("$('#fixedban').remove()");   //Скрыть рекламный баннер
-      executeJavaScript("$('footer').remove()");   //Скрыть футер, закрывающий кнопку
+      open("/automation-practice-form");
+      executeJavaScript("$('#fixedban').remove()");
+      executeJavaScript("$('footer').remove()");
 
-      $("#firstName").setValue("Тест");   //Заполнение имени
-      $("#lastName").setValue("Тестов");   //Заполнение фамилии
-      $("#userEmail").setValue("test@test.test");   //Заполнение имейла
-      $("#genterWrapper").$(byText("Male")).click();   //Выбор пола
-      $("#userNumber").setValue("9010000001");   //Заполнение телефона
+      $("#firstName").setValue("Тест");
+      $("#lastName").setValue("Тестов");
+      $("#userEmail").setValue("test@test.test");
+      $("#genterWrapper").$(byText("Male")).click();
+      $("#userNumber").setValue("9010000001");
       $("#dateOfBirthInput").click();   //Раскрытие календаря
-      $(".react-datepicker__year-select").selectOption("1995");   //Выбор года
-      $(".react-datepicker__month-select").selectOption("May");   //Выбор месяца
-      $(".react-datepicker__day--011").click();   //Выбор дня
-      $("#subjectsInput").setValue("Co").sendKeys(Keys.ARROW_DOWN, Keys.ENTER);  //Ввод первых букв, раскрытие вариантов и выбор одного из них
-      $("#hobbiesWrapper").$(byText("Sports")).shouldNotBe(selected).click();   //Проверка, что чек-бокс Sports не активирован, и его активация
-      $("#uploadPicture").uploadFromClasspath("Designer.png"); //Загрузка картинки
-      $("#currentAddress").setValue("620043, Свердловская обл., г. Екатеринбург, ул. Репина, д. 105");   //Заполнение адреса
-      $("#state").click(); //Раскрытие дропдауна со штатами
-      $("#state input").setValue("Haryana").pressEnter(); //Выбор указанного штата в дропдауне
-      $("#city").click(); //Раскрытие дропдауна с городами
-      $("#city input").setValue("Panipat").pressEnter(); //Выбор указанного города в дропдауне
-      $("#submit").click();   //Подтверждение данных
+      $(".react-datepicker__year-select").selectOption("1995");
+      $(".react-datepicker__month-select").selectOption("May");
+      $(".react-datepicker__day--011").click();
+      $("#subjectsInput").setValue("Co").sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
+      $("#hobbiesWrapper").$(byText("Sports")).shouldNotBe(selected).click();
+      $("#uploadPicture").uploadFromClasspath("Designer.png");
+      $("#currentAddress").setValue("620000, Тестовая обл., г. Тестбург, ул. Тестина, д. 10");
+      $("#state").click();
+      $("#stateCity-wrapper").$(byText("Haryana")).click();
+      $("#city").click();
+      $("#stateCity-wrapper").$(byText("Panipat")).click();
+      $("#submit").click();
 
       //Просмотр результатов в модалке
-      $(".modal-content").shouldBe(visible);
-      $(".table").shouldHave(text("Тест"));
-      $(".table").shouldHave(text("Тестов"));
-      $(".table").shouldHave(text("test@test.test"));
-      $(".table").shouldHave(text("Male"));
-      $(".table").shouldHave(text("9010000001"));
-      $(".table").shouldHave(text("11 May,1995"));
-      $(".table").shouldHave(text("Commerce"));
-      $(".table").shouldHave(text("Sports"));
-      $(".table").shouldHave(text("Designer.png"));
-      $(".table").shouldHave(text("620043, Свердловская обл., г. Екатеринбург, ул. Репина, д. 105"));
-      $(".table").shouldHave(text("Haryana"));
-      $(".table").shouldHave(text("Panipat"));
+      $(".modal-dialog").should(appear);
+      $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
+      $(".table-responsive").shouldHave(text("Тест"),
+              text("Тестов"),
+              text("test@test.test"),
+              text("Male"),
+              text("9010000001"),
+              text("11 May,1995"),
+              text("Commerce"),
+              text("Sports"),
+              text("Designer.png"),
+              text("620000, Тестовая обл., г. Тестбург, ул. Тестина, д. 10"),
+              text("Haryana"),
+              text("Panipat"));
    }
 }
