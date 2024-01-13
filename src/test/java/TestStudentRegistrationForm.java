@@ -59,5 +59,7 @@ public class TestStudentRegistrationForm {
               text("620000, Тестовая обл., г. Тестбург, ул. Тестина, д. 10"),
               text("Haryana"),
               text("Panipat"));
+      //Можно усложнить проверку на соответствие друг другу столбцов
+      $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text("Тест Тестов"));
    }
 }
